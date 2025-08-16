@@ -1,1 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Peso Saludable </title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Control de Peso Saludable</h1>
+            <div class="profile-selector">
+                <select id="patient-select">
+                    <option value="">Seleccionar paciente</option>
+                </select>
+                <button id="new-patient-btn">Nuevo Paciente</button>
+                <button id="delete-patient-btn">Eliminar Paciente</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Información del paciente -->
+            <div class="patient-info">
+                <div class="patient-details-card">
+                    <h2 id="patient-name">Seleccione un paciente</h2>
+                    <div class="patient-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Edad:</span>
+                            <span id="patient-age" class="detail-value">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Altura:</span>
+                            <span id="patient-height" class="detail-value">- cm</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Peso inicial:</span>
+                            <span id="initial-weight" class="detail-value">- kg</span>
+                            <button id="edit-initial-weight" class="edit-btn">✏️</button>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Fecha inicio:</span>
+                            <span id="initial-date" class="detail-value">-</span>
+                            <button id="edit-initial-date" class="edit-btn">✏️</button>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">IMC Actual:</span>
+                            <span id="current-bmi" class="detail-value">-</span>
+                            <span id="bmi-classification" class="detail-value">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Métricas clave -->
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <h4>Cambio última semana</h4>
+                    <p id="week-change">-</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Promedio semanal</h4>
+                    <p id="weekly-average">-</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Progreso IMC</h4>
+                    <p id="bmi-progress-info">-</p>
+                </div>
+            </div>
+
+            <!-- Gráfico y tabla -->
+            <div class="chart-and-table">
+                <div class="chart-container">
+                    <canvas id="progress-chart"></canvas>
+                </div>
+                <div class="table-container">
+                    <div class="weight-history">
+                        <h3>Historial de peso</h3>
+                        <div class="table-wrapper">
+                            <table id="weight-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Peso (kg)</th>
+                                        <th>IMC</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consejos de salud -->
+            <div class="health-advice-card">
+                <h3>Consejos de Salud</h3>
+                <div id="health-advice" class="advice-content">
+                    Seleccione un paciente para ver recomendaciones personalizadas.
+                </div>
+            </div>
+
+            <!-- Tabla informativa de IMC -->
+            <div id="bmi-info-container"></div>
+
+            <!-- Formulario para nuevo peso -->
+            <div class="add-weight">
+                <h3>Registrar nuevo peso</h3>
+                <div class="input-group">
+                    <input type="number" id="new-weight" placeholder="Peso(kg)" step="0.1" min="20" max="300">
+                    <input type="date" id="weight-date">
+                    <button id="add-weight-btn">Agregar</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para nuevo paciente -->
+    <div id="patient-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Nuevo Paciente</h2>
+            <form id="patient-form">
+                <div class="form-group">
+                    <label for="name">Nombre completo:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Edad:</label>
+                    <input type="number" id="age" required min="10" max="120">
+                </div>
+                <div class="form-group">
+                    <label for="height">Altura (cm):</label>
+                    <input type="number" id="height" required min="100" max="250">
+                </div>
+                <div class="form-group">
+                    <label for="starting-weight">Peso inicial (kg):</label>
+                    <input type="number" id="starting-weight" step="0.1" required min="20" max="300">
+                </div>
+                <div class="form-group">
+                    <label for="initial-date">Fecha inicial:</label>
+                    <input type="date" id="initial-date-input" required>
+                </div>
+                <button type="submit"> Guardar </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
 
